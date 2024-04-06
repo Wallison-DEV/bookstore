@@ -44,8 +44,12 @@ RUN pip install --no-cache-dir poetry
 
 # install postgres dependencies inside of Docker
 RUN apt-get update \
-    && apt-get -y install --no-cache-dir libpq-dev gcc \
-    && pip install --no-cache-dir psycopg2
+    && apt-get install --no-install-recommends -y \
+    libpq-dev \
+    && pip install --no-cache-dir psycopg2 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 
 # copy project requirement files here to ensure they will be cached.
 WORKDIR $PYSETUP_PATH
