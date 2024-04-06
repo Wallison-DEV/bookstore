@@ -12,22 +12,22 @@ jobs:
         python-version: 3.8
     - name: Install poetry
       run: |
-        poetry env use 3.11
-        pip install -u pip
-        pip install poetry
-        poetry install
-      env: 
-        POETRY_VIRTUALENVS_CREATE: false
+        curl -sSL https://install.python-poetry.org | python3 -
+        poetry --version
+
     - name: View poetry --help
       run: poetry --help
 
     - name: Install dependencies
       shell: bash
-      run: python -m poetry install
+      run: |
+        python -m poetry env use 3.11
+        python -m poetry install
 
     - name: Test
       run: |
         poetry run python manage.py test
+
     - name: Wemake Python Stylguide
       uses: wemake-services/wemake-python-styleguide@0.16.0
       continue-on-error: true

@@ -21,16 +21,17 @@ jobs:
 
     - name: Install poetry
       run: |
-        poetry env use 3.11 
-        python -m ensurepip
-        python -m pip install --upgrade pip
-        python -m pip install --upgrade poetry
+        curl -sSL https://install.python-poetry.org | python3 -
+        poetry --version
+
     - name: View poetry --help
       run: poetry --help
 
     - name: Install dependencies
       shell: bash
-      run: python -m poetry install
+      run: |
+        python -m poetry env use 3.11
+        python -m poetry install
 
     - name: Test
       run: |
