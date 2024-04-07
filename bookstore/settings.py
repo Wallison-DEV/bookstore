@@ -7,7 +7,7 @@ SECRET_KEY = "django-insecure-1$l@6^pll2!gln06#wxq2q)oe_ivli1-=722g4b_hk^#sxep&3
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://api-ebac-bookstore-3268cdd371d5.herokuapp.com/']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'api-ebac-bookstore-3268cdd371d5.herokuapp.com']
 
 INSTALLED_APPS = [
     "django.contrib.admin",
