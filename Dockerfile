@@ -37,6 +37,10 @@ COPY poetry.lock pyproject.toml ./
 RUN poetry lock --no-update \
     && poetry install --no-dev
 
+# Copy only the dependencies installation to optimize caching
+COPY ./pyproject.toml ./poetry.lock ./
+RUN poetry install --no-dev --no-interaction --no-ansi
+
 WORKDIR /app
 COPY . /app/
 
