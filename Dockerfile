@@ -33,6 +33,7 @@ RUN pip install --no-cache-dir poetry
 WORKDIR $PYSETUP_PATH
 COPY poetry.lock pyproject.toml ./
 
+# Update poetry.lock to reflect changes in pyproject.toml
 RUN poetry lock --no-update \
     && poetry install --no-dev
 
