@@ -6,226 +6,23 @@ authors = ["Wallison <wallisonzwka@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.11"
 pytest = "^8.0.2"
 factory-boy = "^3.3.0"
-django = "^5.0.4"
-psycopg2-binary = "^2.9.9"
-djangorestframework = "^3.15.1"
+django = "^5.0.3"
+psycopg2 = "*"
+django-rest-framework = "^0.1.0"
 django-extensions = "^3.2.3"
 django-debug-toolbar = "^4.3.0"
 gunicorn = "^21.2.0"
 whitenoise = "^6.6.0"
+psycopg2-binary = "^2.9.9"
 gitpython = "^3.1.43"
 
-[tool.poetry.dev-dependencies]
+
+[tool.poetry.group.dev.dependencies]
 waitress = "^3.0.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[[package]]
-name = "asgiref"
-version = "3.8.1"
-description = "ASGI specs, helper code, and adapters"
-optional = false
-python-versions = ">=3.8"
-source = "pypi"
-source_url = "https://pypi.org/simple"
-dependencies = [
-    "sqlparse (>=0.3.1)",
-    { package = "tzdata", optional = true, markers = "sys_platform == \"win32\"" }
-]
-
-[[package]]
-name = "colorama"
-version = "0.4.6"
-description = "Cross-platform colored terminal text."
-optional = false
-python-versions = ">=2.7"
-source = "pypi"
-source_url = "https://pypi.org/simple"
-
-[[package]]
-name = "django"
-version = "5.0.4"
-description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
-optional = false
-python-versions = ">=3.10"
-source = "pypi"
-source_url = "https://pypi.org/simple"
-dependencies = [
-    "asgiref (>=3.7.0,<4)",
-    "sqlparse (>=0.2)"
-]
-
-[[package]]
-name = "django-debug-toolbar"
-version = "4.3.0"
-description = "A configurable set of panels that display various debug information about the current request/response."
-optional = false
-python-versions = ">=3.8"
-source = "pypi"
-source_url = "https://pypi.org/simple"
-dependencies = [
-    "django (>=3.2.4)",
-    "sqlparse (>=0.2)"
-]
-
-[[package]]
-name = "django-extensions"
-version = "3.2.3"
-description = "Extensions for Django"
-optional = false
-python-versions = ">=3.6"
-source = "pypi"
-source_url = "https://pypi.org/simple"
-dependencies = ["Django (>=3.2)"]
-
-[[package]]
-name = "django-rest-framework"
-version = "0.1.0"
-description = "alias."
-optional = false
-python-versions = "*"
-source = "pypi"
-source_url = "https://pypi.org/simple"
-dependencies = ["djangorestframework (*)"]
-
-[[package]]
-name = "factory-boy"
-version = "3.3.0"
-description = "A versatile test fixtures replacement based on thoughtbot's factory_bot for Ruby."
-optional = false
-python-versions = ">=3.7"
-source = "pypi"
-source_url = "https://pypi.org/simple"
-dependencies = ["Faker (>=0.7.0)"]
-
-[[package]]
-name = "faker"
-version = "24.11.0"
-description = "Faker is a Python package that generates fake data for you."
-optional = false
-python-versions = ">=3.8"
-source = "pypi"
-source_url = "https://pypi.org/simple"
-dependencies = ["python-dateutil (>=2.4)"]
-
-[[package]]
-name = "gitdb"
-version = "4.0.11"
-description = "Git Object Database"
-optional = false
-python-versions = ">=3.7"
-source = "pypi"
-source_url = "https://pypi.org/simple"
-dependencies = ["smmap (>=3.0.1,<6)"]
-
-[[package]]
-name = "gitpython"
-version = "3.1.43"
-description = "GitPython is a Python library used to interact with Git repositories"
-optional = false
-python-versions = ">=3.7"
-source = "pypi"
-source_url = "https://pypi.org/simple"
-dependencies = ["gitdb (>=4.0.1,<5)"]
-
-[[package]]
-name = "gunicorn"
-version = "21.2.0"
-description = "WSGI HTTP Server for UNIX"
-optional = false
-python-versions = ">=3.6"
-source = "pypi"
-source_url = "https://pypi.org/simple"
-dependencies = ["h11 (>=0.8.1,<1.0)"]
-
-[[package]]
-name = "h11"
-version = "0.12.0"
-description = "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1"
-optional = false
-python-versions = ">=3.6"
-source = "pypi"
-source_url = "https://pypi.org/simple"
-
-[[package]]
-name = "pluggy"
-version = "1.0.0"
-description = "plugin and hook calling mechanisms for python"
-optional = false
-python-versions = ">=3.5"
-source = "pypi"
-source_url = "https://pypi.org/simple"
-
-[[package]]
-name = "psycopg2-binary"
-version = "2.9.9"
-description = "PostgreSQL database adapter"
-optional = false
-python-versions = ">=3.5"
-source = "pypi"
-source_url = "https://pypi.org/simple"
-
-[[package]]
-name = "pytest"
-version = "8.0.2"
-description = "pytest: simple powerful testing with Python"
-optional = false
-python-versions = ">=3.6"
-source = "pypi"
-source_url = "https://pypi.org/simple"
-dependencies = [
-    "atomicwrites (>=1.0)",
-    "attrs (>=19.2)",
-    "iniconfig (>=1.1)",
-    "packaging (>=20.0)",
-    "pluggy (>=0.12,<1.1)",
-    "py (>=1.10.0)",
-    "toml (>=0.10.2)",
-    "colorama (>=0.4.3)",
-    "pygments (>=2.5.2)"
-]
-
-[[package]]
-name = "pytest-xdist"
-version = "3.7.1"
-description = "py.test xdist plugin for distributed testing and loop-on-failing modes"
-optional = false
-python-versions = ">=3.6"
-source = "pypi"
-source_url = "https://pypi.org/simple"
-dependencies = [
-    "execnet (>=1.2)",
-    "pytest (>=3.6)"
-]
-
-[[package]]
-name = "sqlparse"
-version = "0.4.2"
-description = "A non-validating SQL parser module for Python."
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-source = "pypi"
-source_url = "https://pypi.org/simple"
-
-[[package]]
-name = "toml"
-version = "0.10.2"
-description = "Python Library for Tom's Obvious, Minimal Language"
-optional = false
-python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-source = "pypi"
-source_url = "https://pypi.org/simple"
-
-[[package]]
-name = "tzdata"
-version = "2021.5"
-description = "tzdata, pytz"
-optional = false
-python-versions = "*"
-source = "pypi"
-source_url = "https://pypi.org/simple"
