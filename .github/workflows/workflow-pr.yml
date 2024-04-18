@@ -22,6 +22,7 @@ jobs:
       shell: bash
       run: |
         python -m poetry env use 3.8 # Versão corrigida
+        python -m poetry lock --no-update
         python -m poetry install
 
     - name: Test
