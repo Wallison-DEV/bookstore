@@ -41,6 +41,8 @@ RUN poetry lock --no-update \
 COPY ./pyproject.toml ./poetry.lock ./
 RUN poetry install --no-dev --no-interaction --no-ansi
 
+RUN poetry lock --no-update 
+
 WORKDIR /app
 COPY . /app/
 
