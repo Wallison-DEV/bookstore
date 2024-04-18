@@ -1,38 +1,37 @@
 name: Python Pull Request Workflow
-on: [pull_request]
+on:
+  pull_request:
+    branches:
+      - 'main'
+
 jobs:
   qa:
     name: Quality Check
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@v1
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-    - name: Install poetry
-      run: |
-        curl -sSL https://install.python-poetry.org | python3 -
-        poetry --version
-
-    - name: View poetry --help
-      run: poetry --help
-
-    - name: Install dependencies
-      shell: bash
-      run: |
-        python -m poetry env use 3.8 
-        python -m poetry lock --no-update
-        python -m poetry install
-
-    - name: Test
-      run: |
-        poetry run python manage.py test
-
-    - name: Wemake Python Stylguide
-      uses: wemake-services/wemake-python-styleguide@0.16.0
-      continue-on-error: true
-      with:
-        reporter: 'github-pr-review'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v1
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          poetry --version
+      - name: View poetry --help
+        run: poetry --help
+      - name: Install dependencies
+        shell: bash
+        run: |
+          python -m poetry lock --no-update
+          python -m poetry install
+      - name: Test
+        run: |
+          poetry run python manage.py test
+      - name: Wemake Python Stylguide
+        uses: wemake-services/wemake-python-styleguide@0.16.0
+        continue-on-error: true
+        with:
+          reporter: 'github-pr-review'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

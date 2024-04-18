@@ -1,6 +1,7 @@
+# Primeiro estágio: instala dependências com Poetry
 FROM python:3.11-slim as python-base
 
-# python
+# Variáveis de ambiente
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     \
@@ -10,7 +11,7 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_DEFAULT_TIMEOUT=100 \
     \
     # poetry
-    POETRY_VERSION=1.0.3 \
+    POETRY_VERSION=1.1.8 \
     POETRY_HOME="/opt/poetry" \
     POETRY_VIRTUALENVS_IN_PROJECT=true \
     POETRY_NO_INTERACTION=1 \
@@ -21,6 +22,7 @@ ENV PYTHONUNBUFFERED=1 \
 
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
+# Instala dependências do sistema
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     curl \
@@ -28,25 +30,24 @@ RUN apt-get update \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir poetry
+# Instala o Poetry
+RUN pip install --no-cache-dir "poetry==$POETRY_VERSION"
 
+# Configura o diretório de trabalho e copia arquivos de dependência
 WORKDIR $PYSETUP_PATH
-COPY poetry.lock pyproject.toml ./
+COPY pyproject.toml poetry.lock ./
 
-# Update poetry.lock to reflect changes in pyproject.toml
-RUN poetry lock --no-update \
-    && poetry install --no-dev
-
-# Copy only the dependencies installation to optimize caching
-COPY ./pyproject.toml ./poetry.lock ./
+# Instala dependências sem dev
 RUN poetry install --no-dev --no-interaction --no-ansi
 
-# Update poetry.lock again after installing dependencies
-RUN poetry lock --no-update 
+# Segundo estágio: executa o servidor web
+FROM python-base as runtime
 
 WORKDIR /app
-COPY . /app/
+COPY . /app
 
+# Define a porta de exposição
 EXPOSE 8000
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Comando de execução do servidor web
+CMD ["gunicorn", "bookstore.wsgi:application", "--bind", "0.0.0.0:8000"]
