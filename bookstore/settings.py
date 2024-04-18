@@ -5,7 +5,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = "django-insecure-1$l@6^pll2!gln06#wxq2q)oe_ivli1-=722g4b_hk^#sxep&3"
 
-DEBUG = False 
+DEBUG = True 
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'api-ebac-bookstore-3268cdd371d5.herokuapp.com', 'wallison.pythonanywhere.com']
 
@@ -92,6 +92,9 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = "/static/"
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
