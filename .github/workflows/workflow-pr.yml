@@ -1,38 +1,37 @@
-name: Python application
-
-on: [push]
+name: Python Pull Request Workflow
+on:
+  pull_request:
+    branches:
+      - 'main'
 
 jobs:
-  build:
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: [3.11]
-
-    runs-on: ubuntu-latest
-
+  qa:
+    name: Quality Check
+    runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-
-    - name: Install poetry
-      run: |
-        python -m ensurepip
-        python -m pip install --upgrade pip
-        python -m pip install --upgrade poetry
-    - name: View poetry --help
-      run: poetry --help
-
-    - name: Install dependencies
-      shell: bash
-      run: |
-        python -m poetry lock --no-update
-        python -m poetry install
-
-    - name: Test
-      run: |
-        poetry run python manage.py test
+      - uses: actions/checkout@v1
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          poetry --version
+      - name: View poetry --help
+        run: poetry --help
+      - name: Install dependencies
+        shell: bash
+        run: |
+          python -m poetry lock --no-update
+          python -m poetry install
+      - name: Test
+        run: |
+          poetry run python manage.py test
+      - name: Wemake Python Stylguide
+        uses: wemake-services/wemake-python-styleguide@0.16.0
+        continue-on-error: true
+        with:
+          reporter: 'github-pr-review'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
